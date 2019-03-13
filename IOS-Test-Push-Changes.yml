@@ -4,6 +4,10 @@
   connection: network_cli
   gather_facts: no
   tasks:
+  
+    - name: Remove old config files
+      command: "rm -rf ~/rtr4.config"
+          
     - name: Download latest test config file
       get_url: 
         url: https://raw.githubusercontent.com/vsylvest/Test-Network-Config/master/rtr4.config
