@@ -18,7 +18,7 @@
         method: GET                                       
         dest: /tmp/rtr4.config
         return_content: yes
-      mode: 0400      
+        mode: 0400      
   
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
