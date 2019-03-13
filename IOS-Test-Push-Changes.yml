@@ -6,7 +6,10 @@
   tasks:
   
     - name: Remove old config files
-      command: "rm -rf ~/rtr4.config"
+      file: 
+        path: ~/rtr4.config"
+        state: absent
+        force: yes
           
     - name: Download latest test config file
       get_url: 
