@@ -9,8 +9,6 @@
       file: 
         path: /tmp/rtr4.config
         state: absent
-      
-     
 
     - name: "download servicenow inject file"                       
       uri:                                        
@@ -19,6 +17,15 @@
         dest: /tmp/rtr4.config
         return_content: yes
         mode: 0400      
+        
+        
+    - name: output file
+      command: "cat /tmp/rtr4.config |grep mtu"
+      register: mtu
+      
+    - name: print result
+      debug: 
+        msg: {{ mtu }}
   
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
