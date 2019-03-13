@@ -33,7 +33,7 @@
 
     - name: copy file at root dir of flash
       net_put:
-        src: /tmp/{{inventory_hostname}}.config
+        src: /tmp/test-configs/{{inventory_hostname}}.config
         protocol: scp
         dest : flash:/{{inventory_hostname}}.config
 
