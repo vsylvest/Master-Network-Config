@@ -1,0 +1,36 @@
+---
+- name: PUSH ROUTER CONFIGURATIONS from SCM
+  hosts: localhost
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: Download latest test config file
+      get_url: 
+        url: https://raw.githubusercontent.com/vsylvest/Network-Config/master/Test-Config/rtr4.config
+        dest: ~/rtr4.config
+        owner: awx
+        group: awx
+        mode: 0400
+
+
+- name: RESTORE CONFIGURATION from SCM
+  hosts: test
+  connection: network_cli
+  gather_facts: no
+
+  tasks:
+    - name: gather_ios facts
+      ios_facts:
+      register: iosfact
+
+    
+    - name: copy file at root dir of flash
+      net_put:
+        src: ~/{{inventory_hostname}}.config
+        protocol: scp
+        dest : flash:/{{inventory_hostname}}.config
+        
+    - name: CONFIG REPLACE
+      ios_command:
+        commands:
+          - config replace flash:{{inventory_hostname}}.config force

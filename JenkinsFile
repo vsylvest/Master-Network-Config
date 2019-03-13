@@ -1,0 +1,79 @@
+#!groovy​
+
+stage('Backup Current Configuration') {
+    node {
+
+        //you must specify your own ids
+        ansibleTower(
+                towerServer: 'Tower-Test',
+                templateType: 'job',
+                jobTemplate: '14',
+                importTowerLogs: true,
+                inventory: '2',
+                removeColor: false,
+                verbose: true,
+                credential: '6',  
+                extraVars: """---
+"""
+        )
+    }
+}
+
+
+stage('Push Config Changes') {
+    node {
+
+        //you must specify your own ids
+        ansibleTower(
+                towerServer: 'Tower-Test',
+                templateType: 'job',
+                jobTemplate: '15',
+                importTowerLogs: true,
+                inventory: '2',
+                removeColor: false,
+                verbose: true,
+                credential: '6',  
+                extraVars: """---
+"""
+        )
+    }
+}
+
+
+stage('Test Config Changes') {
+    node {
+
+        //you must specify your own ids
+        ansibleTower(
+                towerServer: 'Tower-Test',
+                templateType: 'job',
+                jobTemplate: '47',
+                importTowerLogs: true,
+                inventory: '2',
+                removeColor: false,
+                verbose: true,
+                credential: '6',  
+                extraVars: """---
+"""
+        )
+    }
+}
+
+stage('Send Notification of Result') {
+    node {
+
+        //you must specify your own ids
+        ansibleTower(
+                towerServer: 'Tower-Test',
+                templateType: 'job',
+                jobTemplate: '18',
+                importTowerLogs: true,
+                inventory: '1',
+                removeColor: false,
+                verbose: true,
+                credential: '3',  
+                extraVars: """---
+"""
+        )
+    }
+}

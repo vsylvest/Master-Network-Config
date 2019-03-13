@@ -1,0 +1,10 @@
+---
+- name: TEST CONFIGURATIONS CHANGES
+  hosts: test
+  connection: network_cli
+  gather_facts: no
+  tasks: 
+    - name: PING TEST ROUTER
+      ping: 
+      
+      

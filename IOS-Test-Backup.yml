@@ -1,0 +1,84 @@
+---
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: test
+  connection: network_cli
+  gather_facts: no
+  vars:
+    gitpush_ssh_keys: []
+    gitpush_local_repo_path: iag-configs/.git
+    gitpush_repo_path: iag-configs
+    gitpush_workdir_path: /var/tmp/backups
+    gitpush_user: vinni.sylvester@gmail.com
+    gitpush_additional_params: '--force'
+    router_backup_dir: backup 
+    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Network-Config.git' 
+    git_checkout_location: /tmp/iag-configs
+  roles:
+    - role: ansible-gitpull-deploy
+
+  tasks:
+  
+    - name: GET DATE
+      command: 'date +"%m-%d-%y"'
+      register: date
+       
+       
+    - name: GET TIME
+      command: 'date +"%T"'
+      register: time
+      
+    - name: BACKUP THE CONFIG
+      ios_config:
+        backup: yes
+      register: config_output
+      
+
+    - name: RENAME BACKUP
+      copy:
+        src: "{{config_output.backup_path}}"
+        dest: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
+
+    - name: REMOVE NON CONFIG LINES
+      lineinfile:
+        path: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
+        line: "Building configuration..."
+        state: absent
+
+    - name: REMOVE NON CONFIG LINES - REGEXP
+      lineinfile:
+        path: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
+        regexp: 'Current configuration.*'
+        state: absent  
+
+    - set_fact:
+        gitpush_host: "{{ ansible_host }}"
+
+    - name: ADD BACKUP TO VERSION CONTROL
+      copy:
+        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+        dest: "{{ git_checkout_location }}/Backup-Config/"
+
+    - name: PRINT NAME
+      debug:
+        msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+
+
+
+- name: Push the contents back up into the remote
+  hosts: test 
+  gather_facts: no
+  vars:
+    gitpush_ssh_keys: []
+    gitpush_local_repo_path: iag-configs/.git
+    gitpush_repo_path: /tmp/iag-configs/.git
+    gitpush_workdir_path: /tmp/iag-configs
+    gitpush_user: ansible
+    git_checkout_location: /tmp/iag-configs
+    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Network-Config.git' 
+
+  roles:
+    - role: ansible-gitpush-deploy
+
+  tasks:
+    - name: Commit and Push Config Changes to SCM
+      shell: "/tmp/./test.sh"

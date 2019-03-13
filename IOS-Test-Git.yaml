@@ -1,0 +1,12 @@
+---
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: control
+  gather_facts: yes
+
+  tasks:
+    - name: Clone Git Repo
+      git:
+        repo: 'https://github.com/vsylvest/Network-Config.git'
+        dest: /home/student1/network-config
+        clone: no
+        update: no
