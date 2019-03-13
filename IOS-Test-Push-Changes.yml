@@ -6,9 +6,7 @@
   tasks:
   
     - name: Remove old config files
-      file: 
-        path: /tmp/rtr4.config
-        state: absent
+      shell: "/tmp/./test1.sh"
 
     - name: "download servicenow inject file"                       
       uri:                                        
