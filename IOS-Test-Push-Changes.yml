@@ -6,7 +6,7 @@
   tasks:
     - name: Download latest test config file
       get_url: 
-        url: https://raw.githubusercontent.com/vsylvest/Network-Config/master/Test-Config/rtr4.config
+        url: https://raw.githubusercontent.com/vsylvest/Test-Network-Config/master/rtr4.config
         dest: ~/rtr4.config
         owner: awx
         group: awx
