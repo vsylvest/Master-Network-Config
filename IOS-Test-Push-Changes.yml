@@ -7,7 +7,7 @@
   
     - name: Remove old config files
       file: 
-        path: ~/rtr4.config"
+        path: /var/lib/awx/rtr4.config"
         state: absent
         force: yes
           
