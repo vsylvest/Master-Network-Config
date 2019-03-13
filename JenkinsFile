@@ -20,22 +20,61 @@ stage('Backup Current Configuration') {
 }
 
 
+
+stage('deploy-test') {
+   try {
+    node {
+        //you must specify your own ids
+                   ansibleTower(
+                          towerServer: 'Tower-Test',
+                          templateType: 'job',
+                          jobTemplate: '15',
+                          importTowerLogs: true,
+                          inventory: '2',
+                          removeColor: false,
+                          verbose: true,
+                          credential: '6',  
+                          extraVars: """---
+"""
+                   )  
+    }
+   } catch(error) {
+     echo "First build failed, let's retry if accepted"
+     retry(2) {
+    node {
+        //you must specify your own ids
+                   ansibleTower(
+                          towerServer: 'Tower-Test',
+                          templateType: 'job',
+                          jobTemplate: '15',
+                          importTowerLogs: true,
+                          inventory: '2',
+                          removeColor: false,
+                          verbose: true,
+                          credential: '6',  
+                          extraVars: """---
+"""
+                   )  
+    }
+     }
+   }
+}
+
 stage('Push Config Changes') {
     node {
-
         //you must specify your own ids
-        ansibleTower(
-                towerServer: 'Tower-Test',
-                templateType: 'job',
-                jobTemplate: '15',
-                importTowerLogs: true,
-                inventory: '2',
-                removeColor: false,
-                verbose: true,
-                credential: '6',  
-                extraVars: """---
+                   ansibleTower(
+                          towerServer: 'Tower-Test',
+                          templateType: 'job',
+                          jobTemplate: '15',
+                          importTowerLogs: true,
+                          inventory: '2',
+                          removeColor: false,
+                          verbose: true,
+                          credential: '6',  
+                          extraVars: """---
 """
-        )
+                   )  
     }
 }
 
