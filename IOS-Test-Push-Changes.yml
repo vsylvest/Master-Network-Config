@@ -15,11 +15,6 @@
     git_checkout_location: /tmp/test-configs
   roles:
     - role: ansible-gitpull-deploy
-
-
-      
-      
-      
       
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
@@ -44,3 +39,9 @@
       ios_command:
         commands:
           - config replace flash:{{inventory_hostname}}.config force
+      register: config_status
+      
+    - name: Save the status to file
+      copy: 
+        src: {{ config_status }}
+        dest: /tmp/conf_status.log
