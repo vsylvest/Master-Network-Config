@@ -85,6 +85,6 @@
       
     - name: Cleanup files
       file: 
-        path: "/tmp/rtr*"
+        path: /tmp/rtr4.config
         state: absent
         
