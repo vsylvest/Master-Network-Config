@@ -10,17 +10,16 @@
         path: /tmp/rtr4.config
         state: absent
       
-          
-    - name: Download latest test config file
-      get_url: 
+     
+
+    - name: "download servicenow inject file"                       
+      uri:                                        
         url: "https://raw.githubusercontent.com/vsylvest/Test-Network-Config/master/rtr4.config"
+        method: GET                                       
         dest: /tmp/rtr4.config
-        owner: awx
-        group: awx
-        mode: 0400
-        force: yes
-
-
+        return_content: yes
+      mode: 0400      
+  
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
   connection: network_cli
