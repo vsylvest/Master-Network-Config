@@ -1,6 +1,6 @@
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
-  hosts: test
+  hosts: localhost
   connection: network_cli
   gather_facts: no
   vars:
