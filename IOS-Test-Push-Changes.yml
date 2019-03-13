@@ -16,6 +16,7 @@
         owner: awx
         group: awx
         mode: 0400
+        force: yes
 
 
 - name: RESTORE CONFIGURATION from SCM
