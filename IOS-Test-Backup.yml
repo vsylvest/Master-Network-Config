@@ -82,3 +82,9 @@
   tasks:
     - name: Commit and Push Config Changes to SCM
       shell: "/tmp/./test.sh"
+      
+    - name: Cleanup files
+      file: 
+        path: "/tmp/rtr*"
+        state: absent
+        
