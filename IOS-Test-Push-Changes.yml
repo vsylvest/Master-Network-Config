@@ -6,10 +6,8 @@
   tasks:
   
     - name: Remove old config files
-      file: 
-        path: /var/lib/awx/rtr4.config"
-        state: absent
-        force: yes
+      command: "rm -rf ~/rtr4.config"
+      
           
     - name: Download latest test config file
       get_url: 
