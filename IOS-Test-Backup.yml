@@ -11,7 +11,7 @@
     gitpush_user: vinni.sylvester@gmail.com
     gitpush_additional_params: '--force'
     router_backup_dir: backup 
-    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Network-Config.git' 
+    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
     git_checkout_location: /tmp/iag-configs
   roles:
     - role: ansible-gitpull-deploy
@@ -74,7 +74,7 @@
     gitpush_workdir_path: /tmp/iag-configs
     gitpush_user: ansible
     git_checkout_location: /tmp/iag-configs
-    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Network-Config.git' 
+    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
 
   roles:
     - role: ansible-gitpush-deploy
