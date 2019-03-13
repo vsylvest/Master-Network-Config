@@ -1,29 +1,26 @@
 ---
-- name: PUSH ROUTER CONFIGURATIONS from SCM
-  hosts: localhost
+- name: BACKUP ROUTER CONFIGURATIONS
+  hosts: test
   connection: network_cli
   gather_facts: no
-  tasks:
-  
-    - name: Remove old config files
-      shell: "/tmp/./test1.sh"
+  vars:
+    gitpush_ssh_keys: []
+    gitpush_local_repo_path: test-configs/.git
+    gitpush_repo_path: test-configs
+    gitpush_workdir_path: /var/tmp/backups
+    gitpush_user: vinni.sylvester@gmail.com
+    gitpush_additional_params: '--force'
+    router_backup_dir: backup 
+    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Test-Network-Config.git' 
+    git_checkout_location: /tmp/test-configs
+  roles:
+    - role: ansible-gitpull-deploy
 
-    - name: "download servicenow inject file"                       
-      uri:                                        
-        url: "https://raw.githubusercontent.com/vsylvest/Test-Network-Config/master/rtr4.config"
-        method: GET                                       
-        dest: /tmp/rtr4.config
-        return_content: yes
-        mode: 0400      
-        
-    - name: output file
-      command: "cat /tmp/rtr4.config "
-      register: mtu
+
       
-    - name: print result
-      debug:
-        msg: "{{ mtu }}"
-  
+      
+      
+      
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
   connection: network_cli
