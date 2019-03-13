@@ -18,14 +18,13 @@
         return_content: yes
         mode: 0400      
         
-        
     - name: output file
       command: "cat /tmp/rtr4.config |grep mtu"
       register: mtu
       
     - name: print result
       debug: 
-        msg: {{ mtu }}
+        var: {{ mtu }}
   
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
