@@ -1,0 +1,13 @@
+---
+- name: PUSH ROUTER CONFIGURATIONS from SCM
+  hosts: localhost
+  connection: network_cli
+  gather_facts: no
+  tasks:
+    - name: test git files
+      git:
+        repo: https://github.com/vsylvest/Test-Network-Config.git
+        dest: /tmp/test-config
+        update: yes
+        
+        
