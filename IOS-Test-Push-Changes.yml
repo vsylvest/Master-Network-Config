@@ -23,8 +23,8 @@
       register: mtu
       
     - name: print result
-      debug: 
-        var: {{ mtu }}
+      debug:
+        msg: "{{ mtu }}"
   
 - name: RESTORE CONFIGURATION from SCM
   hosts: test
