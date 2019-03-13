@@ -6,7 +6,7 @@
   tasks:
   
     - name: Remove old config files
-      command: "sudo rm -rf /tmp/rtr*"
+      command: "rm /tmp/rtr*"
       
           
     - name: Download latest test config file
