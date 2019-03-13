@@ -19,7 +19,7 @@
         mode: 0400      
         
     - name: output file
-      command: "cat /tmp/rtr4.config |grep mtu"
+      command: "cat /tmp/rtr4.config "
       register: mtu
       
     - name: print result
