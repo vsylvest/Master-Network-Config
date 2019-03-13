@@ -7,7 +7,7 @@
     - name: test git files
       git:
         repo: https://github.com/vsylvest/Test-Network-Config.git
-        dest: /tmp/test-config
+        dest: ~/test-config
         update: yes
         
         
