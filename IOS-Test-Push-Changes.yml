@@ -17,7 +17,7 @@
 
   tasks:
     - name: copy file at root dir of flash
-      command: "scp /tmp/test-configs/rtr4.config  rtr4:/rtr4.config"
+      command: "scp /tmp/test-configs/rtr3.config  rtr3:/rtr3.config"
 
 
 - name: RESTORE CONFIGURATION from SCM
