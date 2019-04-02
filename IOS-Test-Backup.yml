@@ -71,11 +71,9 @@
     - name: ADD BACKUP TO VERSION CONTROL
       copy:
         src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
-        dest: "{{ git_checkout_location }}/Backup-Config/"
-
-    - name: PRINT NAME
-      debug:
-        msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+        dest: "/tmp/network-configs/Backup-Config/"
+      delegate_to: control
+      become: yes
 
     - name: PRINT NAME
       debug:
@@ -97,10 +95,6 @@
     - role: ansible-gitpush-deploy
      
   tasks:
-    - name: ADD BACKUP TO VERSION CONTROL
-      copy:
-        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
-        dest: "{{ git_checkout_location }}/Backup-Config/"
         
     - name: Commit and Push Config Changes to SCM
       shell: "/tmp/./test.sh"
