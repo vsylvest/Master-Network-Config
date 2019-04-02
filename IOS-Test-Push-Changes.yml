@@ -1,6 +1,6 @@
 ---
 - name: Push Test Router Changes
-  hosts: localhost
+  hosts: control
   gather_facts: no
   vars:
     gitpush_ssh_keys: []
