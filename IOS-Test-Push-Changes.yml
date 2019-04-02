@@ -16,14 +16,8 @@
     - role: ansible-gitpull-deploy
 
   tasks:
-
-
-    - name: Copy config to router directory
-      copy:
-        src: "{{ git_checkout_location }}/rtr3.config" 
-        dest: "./{{ router_backup_dir }}/rtr3.config"  
-      become: yes
-
+    - name: copy file at root dir of flash
+      command: "scp /tmp/test-configs/rtr3.config  rtr3:/rtr3.config"
 
 
 
@@ -33,13 +27,6 @@
   gather_facts: no
 
   tasks:
-  
-    - name: copy file at root dir of flash
-      net_put:
-        src: "./{{ router_backup_dir }}/rtr3.config"
-        protocol: scp
-        dest : flash:/rtr3.config
-        
     - name: CONFIG REPLACE
       ios_command:
         commands:
