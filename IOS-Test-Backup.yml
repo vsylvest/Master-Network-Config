@@ -100,6 +100,17 @@
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
 
   tasks:
+    - name: ADD BACKUP TO VERSION CONTROL
+      copy:
+        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+        dest: "{{ git_checkout_location }}/Backup-Config/"
+      delegate_to: localhost 
+
+    - name: PRINT NAME
+      debug:
+        msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+      delegate_to: localhost 
+      
     - name: Commit and Push Config Changes to SCM
       shell: "/tmp/./test.sh"
       delegate_to: localhost 
