@@ -12,6 +12,7 @@
   become: yes
 
 
+  become: yes
 #- name: Clone that repo!
 #  local_action: "command cd /tmp && git clone \"{{ git_remote_repo_path }}\""
 #  #changed_when: response.stderr != "Receiving objects\: 100\% (3/3), done."

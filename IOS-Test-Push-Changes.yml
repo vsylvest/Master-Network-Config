@@ -17,10 +17,11 @@
 
   tasks:
 
-    - name: ADD BACKUP TO VERSION CONTROL
+
+    - name: Copy config to router directory
       copy:
-        src: "/tmp/test-configs/rtr3.config" 
-        dest: "./{{ router_backup_dir }}"
+        src: "{{ git_checkout_location }}/rtr3.config" 
+        dest: "./{{ router_backup_dir }}/rtr3.config"  
       become: yes
 
 
