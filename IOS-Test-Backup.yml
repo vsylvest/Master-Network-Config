@@ -67,16 +67,10 @@
 
     - set_fact:
         gitpush_host: "{{ ansible_host }}"
-
-    - name: ADD BACKUP TO VERSION CONTROL
-      copy:
-        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
-        dest: "/tmp/network-configs/Backup-Config/"
-
       
     - name: PRINT NAME
       copy:
-        src: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
+        content: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
         dest: "/{{router_backup_dir}}/backupname"
 
 - name: Push the contents back up into the remote
