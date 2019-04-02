@@ -14,9 +14,10 @@
     git_checkout_location: /tmp/test-configs
   roles:
     - role: ansible-gitpull-deploy
-      
+
+
 - name: RESTORE CONFIGURATION from SCM
-  hosts: test
+  hosts: cisco
   connection: network_cli
   gather_facts: no
 
