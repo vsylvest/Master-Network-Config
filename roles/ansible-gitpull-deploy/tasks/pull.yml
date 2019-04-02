@@ -9,8 +9,9 @@
   git:
     repo: "{{ git_remote_repo_path }}"
     dest: "{{ git_checkout_location }}"
-    become: yes
-
+  become: yes
+  become_method: su
+  become_user: root
 
 #- name: Clone that repo!
 #  local_action: "command cd /tmp && git clone \"{{ git_remote_repo_path }}\""
