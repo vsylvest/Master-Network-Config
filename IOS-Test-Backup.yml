@@ -1,6 +1,6 @@
 ---
 - name: BACKUP ROUTER CONFIGURATIONS
-  hosts: localhost
+  hosts: control
   gather_facts: yes
   vars:
     gitpush_ssh_keys: []
@@ -21,7 +21,6 @@
   gather_facts: no
   vars:
     router_backup_dir: backup 
-
   tasks:
     - name: GET DATE
       command: 'date +"%m-%d-%y"'
@@ -79,7 +78,7 @@
         msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
 
 - name: Push the contents back up into the remote
-  hosts: localhost 
+  hosts: control 
   vars:
     gitpush_ssh_keys: []
     gitpush_local_repo_path: network-configs/.git
