@@ -16,14 +16,14 @@
     - role: ansible-gitpull-deploy
 
   tasks:
-    - name: copy file at root dir of flash
-      command: "scp /tmp/test-configs/rtr3.config  rtr3:/rtr3.config"
 
-#    - name: copy file at root dir of flash
-#     net_put:
-#        src: /tmp/test-configs/rtr3.config
-#        protocol: scp
-#        dest : rtr3:/rtr3.config
+    - name: ADD BACKUP TO VERSION CONTROL
+      copy:
+        src: "/tmp/test-configs/rtr3.config" 
+        dest: "./{{ router_backup_dir }}"
+
+
+
 
 - name: RESTORE CONFIGURATION from SCM
   hosts: cisco
@@ -31,6 +31,13 @@
   gather_facts: no
 
   tasks:
+  
+    - name: copy file at root dir of flash
+      net_put:
+        src: "./{{ router_backup_dir }}/rtr3.config"
+        protocol: scp
+        dest : flash:/rtr3.config
+        
     - name: CONFIG REPLACE
       ios_command:
         commands:
