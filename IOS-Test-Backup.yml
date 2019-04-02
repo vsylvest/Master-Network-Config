@@ -81,5 +81,5 @@
 
   tasks:
     - name: Commit and Push Config Changes to SCM
-      shell: "/home/student1/./test.sh"
+      shell: "/tmp/./test.sh"
 
