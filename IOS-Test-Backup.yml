@@ -77,6 +77,11 @@
       debug:
         msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
       register: backupname
+      
+    - name: PRINT NAME
+      copy:
+        src: "{{ backupname }}" 
+        dest: "/tmp/backupname"
 
 - name: Push the contents back up into the remote
   hosts: control 
@@ -98,8 +103,9 @@
 
       
     - name: Commit and Push Config Changes to SCM
-      debug: 
-        msg: "{{ backupname }}"
+      command: "cat /tmp/backupname"
+      register: backupname
+
 
     - name: Commit and Push Config Changes to SCM
       copy:
