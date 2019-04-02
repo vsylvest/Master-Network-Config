@@ -96,12 +96,17 @@
     gitpush_user: ansible
     git_checkout_location: /tmp/network-configs
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
+    router_backup_dir: backup 
 
   roles:
     - role: ansible-gitpush-deploy
-      become: yes
-      
+     
   tasks:
+    - name: ADD BACKUP TO VERSION CONTROL
+      copy:
+        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+        dest: "{{ git_checkout_location }}/Backup-Config/"
+        
     - name: Commit and Push Config Changes to SCM
       shell: "/tmp/./test.sh"
       become: yes
