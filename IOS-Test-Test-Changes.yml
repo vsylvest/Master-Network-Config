@@ -1,6 +1,6 @@
 ---
 - name: TEST CONFIGURATIONS CHANGES
-  hosts: test
+  hosts: cisco
   connection: network_cli
   gather_facts: no
   tasks: 
