@@ -5,14 +5,14 @@
   gather_facts: no
   vars:
     gitpush_ssh_keys: []
-    gitpush_local_repo_path: iag-configs/.git
-    gitpush_repo_path: iag-configs
+    gitpush_local_repo_path: network-configs/.git
+    gitpush_repo_path: network-configs
     gitpush_workdir_path: /var/tmp/backups
     gitpush_user: vinni.sylvester@gmail.com
     gitpush_additional_params: '--force'
     router_backup_dir: backup 
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
-    git_checkout_location: /tmp/iag-configs
+    git_checkout_location: /tmp/network-configs
   roles:
     - role: ansible-gitpull-deploy
 
@@ -65,15 +65,15 @@
 
 
 - name: Push the contents back up into the remote
-  hosts: test 
+  hosts: cisco 
   gather_facts: no
   vars:
     gitpush_ssh_keys: []
-    gitpush_local_repo_path: iag-configs/.git
-    gitpush_repo_path: /tmp/iag-configs/.git
-    gitpush_workdir_path: /tmp/iag-configs
+    gitpush_local_repo_path: network-configs/.git
+    gitpush_repo_path: /tmp/network-configs/.git
+    gitpush_workdir_path: /tmp/network-configs
     gitpush_user: ansible
-    git_checkout_location: /tmp/iag-configs
+    git_checkout_location: /tmp/network-configs
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
 
   roles:
@@ -81,5 +81,5 @@
 
   tasks:
     - name: Commit and Push Config Changes to SCM
-      shell: "/tmp/./test.sh"
+      shell: "/home/student1/./test.sh"
 
