@@ -20,7 +20,10 @@
       command: "scp -i /home/student1/.ssh/aws-private.pem /tmp/test-configs/rtr3.config  ec2-user@rtr3:/rtr3.config"
       become: yes
 
-
+    - name: write config differences to file
+      shell: "/tmp/./diff.sh"
+      become: yes
+      
 - name: RESTORE CONFIGURATION from SCM
   hosts: cisco
   connection: network_cli
