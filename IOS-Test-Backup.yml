@@ -67,11 +67,14 @@
 
     - set_fact:
         gitpush_host: "{{ ansible_host }}"
-      
-    - name: PRINT NAME
+
+    - name: ADD BACKUP TO VERSION CONTROL
       copy:
-        content: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
-        dest: "./{{router_backup_dir}}/backupname"
+        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+        dest: "/tmp/network-configs/Backup-Config/"
+      delegate_to: localhost
+      become: yes
+
 
 - name: Push the contents back up into the remote
   hosts: control 
@@ -89,19 +92,6 @@
     - role: ansible-gitpush-deploy
      
   tasks:
-        
-
-      
-    - name: Commit and Push Config Changes to SCM
-      command: "cat ./{{router_backup_dir}}/backupname"
-      register: backupname
-
-
-    - name: Commit and Push Config Changes to SCM
-      copy:
-        src: "./{{router_backup_dir}}/{{ backupname }}" 
-        dest: "/tmp/network-configs/Backup-Config/"
-      become: yes
       
             
     - name: Commit and Push Config Changes to SCM
