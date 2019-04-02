@@ -21,3 +21,5 @@
     src: post-receive.j2
     dest: "{{ gitpush_repo_path }}/hooks/post-receive"
     mode: u=rwx,g=rwx,o=
+  become: yes
+
