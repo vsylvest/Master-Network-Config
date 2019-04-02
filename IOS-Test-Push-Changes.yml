@@ -29,8 +29,8 @@
 #        dest : flash:/{{inventory_hostname}}.config
 #      delegate_to: localhost
 
-   - name: copy file at root dir of flash
-     command: "scp /tmp/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config"
+    - name: copy file at root dir of flash
+      command: "scp /tmp/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config"
 
     - name: CONFIG REPLACE
       ios_command:
