@@ -19,10 +19,6 @@
     - name: copy file at root dir of flash
       command: "scp -i /home/student1/.ssh/aws-private.pem /tmp/test-configs/rtr3.config  ec2-user@rtr3:/rtr3.config"
       become: yes
-      
-    - name: compare differences in config
-      command: "sudo diff /tmp/test-configs/rtr3.config /var/lib/awx/projects/_11__networks_cicd/backup/`ls -ltr |tail -1 | awk -F\" \" '{print $9}'`"
-      become: yes
 
 
 - name: RESTORE CONFIGURATION from SCM
