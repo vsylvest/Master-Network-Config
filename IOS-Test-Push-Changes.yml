@@ -31,3 +31,8 @@
       ios_command:
         commands:
           - config replace flash:{{inventory_hostname}}.config force
+      register: output
+      
+    - name: Print Changes
+      debug: 
+        var: "{{ output }}" 
