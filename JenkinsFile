@@ -5,9 +5,9 @@ stage('Backup Current Configuration') {
 
         //you must specify your own ids
         ansibleTower(
-                towerServer: 'Tower-Test',
+                towerServer: 'tower',
                 templateType: 'job',
-                jobTemplate: '14',
+                jobTemplate: '15',
                 importTowerLogs: true,
                 inventory: '2',
                 removeColor: false,
@@ -21,14 +21,14 @@ stage('Backup Current Configuration') {
 
 
 
-stage('deploy-test') {
+stage('Push Config Changes') {
    try {
     node {
         //you must specify your own ids
                    ansibleTower(
-                          towerServer: 'Tower-Test',
+                          towerServer: 'tower',
                           templateType: 'job',
-                          jobTemplate: '15',
+                          jobTemplate: '17',
                           importTowerLogs: true,
                           inventory: '2',
                           removeColor: false,
@@ -44,9 +44,9 @@ stage('deploy-test') {
     node {
         //you must specify your own ids
                    ansibleTower(
-                          towerServer: 'Tower-Test',
+                          towerServer: 'tower',
                           templateType: 'job',
-                          jobTemplate: '15',
+                          jobTemplate: '17',
                           importTowerLogs: true,
                           inventory: '2',
                           removeColor: false,
@@ -60,23 +60,6 @@ stage('deploy-test') {
    }
 }
 
-stage('Push Config Changes') {
-    node {
-        //you must specify your own ids
-                   ansibleTower(
-                          towerServer: 'Tower-Test',
-                          templateType: 'job',
-                          jobTemplate: '15',
-                          importTowerLogs: true,
-                          inventory: '2',
-                          removeColor: false,
-                          verbose: true,
-                          credential: '6',  
-                          extraVars: """---
-"""
-                   )  
-    }
-}
 
 
 stage('Test Config Changes') {
@@ -84,7 +67,7 @@ stage('Test Config Changes') {
 
         //you must specify your own ids
         ansibleTower(
-                towerServer: 'Tower-Test',
+                towerServer: 'tower',
                 templateType: 'job',
                 jobTemplate: '47',
                 importTowerLogs: true,
@@ -103,7 +86,7 @@ stage('Send Notification of Result') {
 
         //you must specify your own ids
         ansibleTower(
-                towerServer: 'Tower-Test',
+                towerServer: 'tower',
                 templateType: 'job',
                 jobTemplate: '18',
                 importTowerLogs: true,
