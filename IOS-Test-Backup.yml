@@ -72,7 +72,7 @@
       copy:
         src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
         dest: "{{ git_checkout_location }}/Backup-Config/"
-]
+
     - name: PRINT NAME
       debug:
         msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
