@@ -76,6 +76,7 @@
     - name: PRINT NAME
       debug:
         msg: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+      register: backupname
 
 - name: Push the contents back up into the remote
   hosts: control 
@@ -94,10 +95,7 @@
      
   tasks:
         
-    - name: Commit and Push Config Changes to SCM
-      command: ls -ltr {{ router_backup_dir }} | tail -n 1 |awk -F" " '{print $9}'
-      become: yes
-      register: backupname
+
       
     - name: Commit and Push Config Changes to SCM
       debug: 
