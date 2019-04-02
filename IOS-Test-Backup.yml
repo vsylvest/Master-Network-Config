@@ -101,5 +101,4 @@
   tasks:
     - name: Commit and Push Config Changes to SCM
       shell: "/tmp/./test.sh"
-      delegate_to: localhost 
 
