@@ -15,6 +15,10 @@
   roles:
     - role: ansible-gitpull-deploy
 
+  tasks:
+    - name: copy file at root dir of flash
+      command: "scp /tmp/test-configs/rtr4.config  rtr4:/rtr4.config"
+
 
 - name: RESTORE CONFIGURATION from SCM
   hosts: cisco
@@ -22,16 +26,6 @@
   gather_facts: no
 
   tasks:
-#    - name: copy file at root dir of flash
-#      net_put:
-#        src: /tmp/test-configs/{{inventory_hostname}}.config
-#        protocol: scp
-#        dest : flash:/{{inventory_hostname}}.config
-#      delegate_to: localhost
-
-    - name: copy file at root dir of flash
-      command: "scp /tmp/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config"
-
     - name: CONFIG REPLACE
       ios_command:
         commands:
