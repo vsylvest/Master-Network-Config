@@ -9,7 +9,6 @@
     gitpush_workdir_path: /var/tmp/backups
     gitpush_user: vinni.sylvester@gmail.com
     gitpush_additional_params: '--force'
-    router_backup_dir: backup 
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
     git_checkout_location: /tmp/network-configs
   roles:
@@ -20,6 +19,9 @@
   hosts: cisco
   connection: network_cli
   gather_facts: no
+  vars:
+    router_backup_dir: backup 
+
   tasks:
     - name: GET DATE
       command: 'date +"%m-%d-%y"'
