@@ -17,7 +17,7 @@
 
 
 - name: RESTORE CONFIGURATION from SCM
-  hosts: cisco
+  hosts: all
   connection: network_cli
   gather_facts: no
 
@@ -25,12 +25,14 @@
     - name: gather_ios facts
       ios_facts:
       register: iosfact
+      delegate_to: rtr4
 
     - name: copy file at root dir of flash
       net_put:
         src: /tmp/test-configs/{{inventory_hostname}}.config
         protocol: scp
         dest : flash:/{{inventory_hostname}}.config
+      delegate_to: ansible
 
 #   - name: copy file at root dir of flash
 #     command: "scp /tmp/{{inventory_hostname}}.config  {{inventory_hostname}}:/{{inventory_hostname}}.config"
@@ -39,3 +41,4 @@
       ios_command:
         commands:
           - config replace flash:{{inventory_hostname}}.config force
+      delegate_to: rtr4
