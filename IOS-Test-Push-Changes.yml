@@ -21,6 +21,7 @@
       copy:
         src: "/tmp/test-configs/rtr3.config" 
         dest: "./{{ router_backup_dir }}"
+      become: yes
 
 
 
