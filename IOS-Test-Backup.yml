@@ -71,7 +71,7 @@
     - name: PRINT NAME
       copy:
         content: "{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config"
-        dest: "/{{router_backup_dir}}/backupname"
+        dest: "{{router_backup_dir}}/backupname"
 
 - name: Push the contents back up into the remote
   hosts: control 
@@ -93,7 +93,7 @@
 
       
     - name: Commit and Push Config Changes to SCM
-      command: "cat /{{router_backup_dir}}/backupname"
+      command: "cat {{router_backup_dir}}/backupname"
       register: backupname
 
 
