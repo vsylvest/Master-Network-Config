@@ -17,7 +17,7 @@
 
   tasks:
     - name: copy file at root dir of flash
-      command: "scp -i /home/student1/.ssh/router.pem /tmp/test-configs/rtr3.config  ec2-user@rtr3:/rtr3.config"
+      command: "scp -i /home/student1/.ssh/aws-private.pem /tmp/test-configs/rtr3.config  ec2-user@rtr3:/rtr3.config"
       become: yes
 
 - name: RESTORE CONFIGURATION from SCM
