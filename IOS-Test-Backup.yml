@@ -89,8 +89,6 @@
     - role: ansible-gitpush-deploy
      
   tasks:
-      
-            
     - name: Commit and Push Config Changes to SCM
-      shell: "/tmp/./test.sh"
+      shell: "/home/student1/./test.sh"
       become: yes
