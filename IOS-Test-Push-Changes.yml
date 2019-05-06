@@ -11,14 +11,13 @@
     gitpush_additional_params: '--force'
     router_backup_dir: backup 
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Test-Network-Config.git' 
-    git_checkout_location: /tmp/test-configs
+    git_checkout_location: /home/student1/test-configs
   roles:
     - role: ansible-gitpull-deploy
 
   tasks:
     - name: copy file at root dir of flash
-      command: "scp -i /home/student1/.ssh/aws-private.pem /tmp/test-configs/rtr4.config  ec2-user@rtr4:/rtr4.config"
-      become: yes
+      command: "scp -i /home/student1/.ssh/aws-private.pem /home/student1/test-configs/rtr4.config  ec2-user@rtr4:/rtr4.config"
 
 - name: RESTORE CONFIGURATION from SCM
   hosts: cisco
