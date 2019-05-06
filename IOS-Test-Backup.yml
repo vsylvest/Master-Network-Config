@@ -10,7 +10,7 @@
     gitpush_user: vinni.sylvester@gmail.com
     gitpush_additional_params: '--force'
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
-    git_checkout_location: /tmp/network-configs
+    git_checkout_location: /home/student1/network-configs
   roles:
     - role: ansible-gitpull-deploy
 
@@ -26,7 +26,7 @@
     gitpush_user: vinni.sylvester@gmail.com
     gitpush_additional_params: '--force'
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
-    git_checkout_location: /tmp/network-configs
+    git_checkout_location: /home/student1/network-configs
     router_backup_dir: backup 
   gather_facts: no
 
@@ -71,7 +71,9 @@
     - name: ADD BACKUP TO VERSION CONTROL
       copy:
         src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
-        dest: "/tmp/network-configs/Backup-Config/"
+        dest: "/home/student1/network-configs/Backup-Config/"
+      delegate_to: localhost 
+
 
 - name: Push the contents back up into the remote
   hosts: control 
@@ -81,12 +83,12 @@
     gitpush_repo_path: /tmp/network-configs/.git
     gitpush_workdir_path: /tmp/network-configs
     gitpush_user: ansible
-    git_checkout_location: /tmp/network-configs
+    git_checkout_location: /home/student1/network-configs
     git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
     router_backup_dir: backup 
 
-  roles:
-    - role: ansible-gitpush-deploy
+#  roles:
+#    - role: ansible-gitpush-deploy
      
   tasks:
     - name: Commit and Push Config Changes to SCM
