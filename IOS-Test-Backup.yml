@@ -68,23 +68,14 @@
     - set_fact:
         gitpush_host: "{{ ansible_host }}"
 
-    - name: ADD BACKUP TO VERSION CONTROL
-      copy:
-        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
-        dest: "/home/student1/network-configs/Backup-Config/"
-      delegate_to: localhost
+#    - name: ADD BACKUP TO VERSION CONTROL
+#      copy:
+#        src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
+#        dest: "/home/student1/network-configs/Backup-Config/"
+#      delegate_to: localhost
 
 - name: Push the contents back up into the remote
   hosts: control 
-  vars:
-    gitpush_ssh_keys: []
-    gitpush_local_repo_path: network-configs/.git
-    gitpush_repo_path: /tmp/network-configs/.git
-    gitpush_workdir_path: /tmp/network-configs
-    gitpush_user: ansible
-    git_checkout_location: /home/student1/network-configs
-    git_remote_repo_path: 'https://{{ git_user }}:{{ git_pass }}@github.com/vsylvest/Master-Network-Config.git' 
-    router_backup_dir: backup 
 
 #  roles:
 #    - role: ansible-gitpush-deploy
