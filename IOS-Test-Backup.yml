@@ -73,6 +73,7 @@
         src: "./{{router_backup_dir}}/{{inventory_hostname}}-{{ date.stdout }}-{{ time.stdout }}.config" 
         dest: "/home/student1/network-configs/Backup-Config/"
       become: yes
+      delegate_to: localhost
 
 - name: Push the contents back up into the remote
   hosts: control 
